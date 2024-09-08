@@ -1,10 +1,12 @@
 package main
 
+const alemao string = "alemao"
 const espanhol string = "espanhol"
 const frances string = "frances"
-const prefixoOlaPortugues string = "Olá, "
+const prefixoOlaAlemao string = "Hallo, "
 const prefixoOlaEspanhol string = "Hola, "
 const prefixoOlaFrances string = "Bonjour, "
+const prefixoOlaPortugues string = "Olá, "
 
 func main() {
 }
@@ -14,13 +16,16 @@ func Ola(nome string, idioma string) string {
 		nome = "Mundo"
 	}
 
-	if idioma == espanhol {
-		return prefixoOlaEspanhol + nome
+	prefixo := prefixoOlaPortugues
+
+	switch idioma {
+	case frances:
+		prefixo = prefixoOlaFrances
+	case espanhol:
+		prefixo = prefixoOlaEspanhol
+	case alemao:
+		prefixo = prefixoOlaAlemao
 	}
 
-	if idioma == frances {
-		return prefixoOlaFrances + nome
-	}
-
-	return prefixoOlaPortugues + nome
+	return prefixo + nome
 }
