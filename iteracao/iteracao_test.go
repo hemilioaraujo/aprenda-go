@@ -6,7 +6,7 @@ import (
 )
 
 func TestRepetir(t *testing.T) {
-	repeticoes := Repetir("a")
+	repeticoes := Repetir("a", 5)
 	esperado := "aaaaa"
 
 	if repeticoes != esperado {
@@ -16,11 +16,11 @@ func TestRepetir(t *testing.T) {
 
 func BenchmarkRepetir(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Repetir("a")
+		Repetir("a", 15)
 	}
 }
 
 func ExampleRepetir() {
-	fmt.Println(Repetir("w"))
-	//Output: wwwww
+	fmt.Println(Repetir("w", 4))
+	//Output: wwww
 }
