@@ -7,3 +7,11 @@ func Soma(numeros []int) (soma int) {
 
 	return
 }
+
+func SomaTudo(numerosParaSomar ...[]int) (somas []int) {
+	for _, numeros := range numerosParaSomar {
+		somas = append(somas, Soma(numeros))
+	}
+
+	return
+}
