@@ -1,13 +1,25 @@
 package ponteiroseerros
 
-type Carteira struct {
-	saldo int
+import "fmt"
+
+type Bitcoin int
+
+func (b Bitcoin) String() string {
+	return fmt.Sprintf("%d BTC", b)
 }
 
-func (c *Carteira) Depositar(valor int) {
+type Stringer interface {
+	String() string
+}
+
+type Carteira struct {
+	saldo Bitcoin
+}
+
+func (c *Carteira) Depositar(valor Bitcoin) {
 	c.saldo += valor
 }
 
-func (c *Carteira) Saldo() int {
+func (c *Carteira) Saldo() Bitcoin {
 	return c.saldo
 }
