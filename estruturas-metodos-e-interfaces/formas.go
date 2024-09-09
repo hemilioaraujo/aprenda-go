@@ -2,6 +2,10 @@ package estruturasmetodoseinterfaces
 
 import "math"
 
+type Forma interface {
+	Area() float64
+}
+
 type Retangulo struct {
 	Largura float64
 	Altura  float64
@@ -23,6 +27,11 @@ func Perimetro(ret Retangulo) float64 {
 	return (ret.Largura + ret.Altura) * 2
 }
 
-func Area(ret Retangulo) float64 {
-	return ret.Largura * ret.Altura
+type Triangulo struct {
+	Base   float64
+	Altura float64
+}
+
+func (t Triangulo) Area() float64 {
+	return (t.Base * t.Altura) * 0.5
 }
