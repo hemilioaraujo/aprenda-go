@@ -40,12 +40,27 @@ func (d Dicionario) Adiciona(key, value string) error {
 
 func (d Dicionario) Atualiza(key, value string) error {
 	_, err := d.Busca(key)
-	
+
 	switch err {
 	case ErrNaoEncontrado:
 		return ErrPalavraInexistente
 	case nil:
 		d[key] = value
+	default:
+		return err
+	}
+
+	return nil
+}
+
+func (d Dicionario) Deleta(key string) error {
+	_, err := d.Busca(key)
+
+	switch err {
+	case ErrNaoEncontrado:
+		return ErrNaoEncontrado
+	case nil:
+		delete(d, key)
 	default:
 		return err
 	}
