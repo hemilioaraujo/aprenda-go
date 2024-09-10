@@ -20,39 +20,62 @@ func TestBusca(t *testing.T) {
 }
 
 func TestAdiciona(t *testing.T) {
-    t.Run("palavra nova", func(t *testing.T) {
-        dicionario := Dicionario{}
+	t.Run("palavra nova", func(t *testing.T) {
+		dicionario := Dicionario{}
+		palavra := "teste"
+		definicao := "isso é apenas um teste"
+
+		err := dicionario.Adiciona(palavra, definicao)
+
+		comparaErro(t, err, nil)
+		comparaDefinicao(t, dicionario, palavra, definicao)
+	})
+
+	t.Run("palavra existente", func(t *testing.T) {
+		palavra := "teste"
+		definicao := "isso é apenas um teste"
+		dicionario := Dicionario{palavra: definicao}
+		err := dicionario.Adiciona(palavra, "teste novo")
+
+		comparaErro(t, err, ErrPalavraExistente)
+		comparaDefinicao(t, dicionario, palavra, definicao)
+	})
+}
+
+func TestAtualiza(t *testing.T) {
+	    t.Run("palavra existente", func(t *testing.T) {
         palavra := "teste"
         definicao := "isso é apenas um teste"
-
-        err := dicionario.Adiciona(palavra, definicao)
+        novaDefinicao := "nova definição"
+        dicionario := Dicionario{palavra: definicao}
+        err := dicionario.Atualiza(palavra, novaDefinicao)
 
         comparaErro(t, err, nil)
-        comparaDefinicao(t, dicionario, palavra, definicao)
+        comparaDefinicao(t, dicionario, palavra, novaDefinicao)
     })
 
-    t.Run("palavra existente", func(t *testing.T) {
+    t.Run("palavra nova", func(t *testing.T) {
         palavra := "teste"
         definicao := "isso é apenas um teste"
-        dicionario := Dicionario{palavra: definicao}
-        err := dicionario.Adiciona(palavra, "teste novo")
+        dicionario := Dicionario{}
 
-        comparaErro(t, err, ErrPalavraExistente)
-        comparaDefinicao(t, dicionario, palavra, definicao)
+        err := dicionario.Atualiza(palavra, definicao)
+
+        comparaErro(t, err, ErrPalavraInexistente)
     })
 }
 
 func comparaDefinicao(t *testing.T, dicionario Dicionario, palavra, definicao string) {
-    t.Helper()
+	t.Helper()
 
-    resultado, err := dicionario.Busca(palavra)
-    if err != nil {
-        t.Fatal("deveria ter encontrado palavra adicionada:", err)
-    }
+	resultado, err := dicionario.Busca(palavra)
+	if err != nil {
+		t.Fatal("deveria ter encontrado palavra adicionada:", err)
+	}
 
-    if definicao != resultado {
-        t.Errorf("resultado '%s',  esperado '%s'", resultado, definicao)
-    }
+	if definicao != resultado {
+		t.Errorf("resultado '%s',  esperado '%s'", resultado, definicao)
+	}
 }
 
 func comparaStrings(t *testing.T, resultado, esperado string) {
