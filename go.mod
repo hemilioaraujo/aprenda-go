@@ -1,3 +1,3 @@
-module tdd
+module aprenda-go
 
 go 1.23.0
