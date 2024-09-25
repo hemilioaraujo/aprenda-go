@@ -14,16 +14,12 @@ const (
 // sugerindo a correção dos códigos de exemplo, pois iniciam com o nome Sleep
 // e depois passa para Pausa e causa um erro onde deveria funcionar
 
-
 func Contagem(out io.Writer, sleeper Sleeper) {
 	for i := inicioContagem; i > 0; i-- {
 		sleeper.Sleep()
-	}
-	
-	for i := inicioContagem; i > 0; i-- {
 		fmt.Fprintln(out, i)
 	}
-	
+
 	sleeper.Sleep()
 	fmt.Fprint(out, ultimaPalavra)
 }
