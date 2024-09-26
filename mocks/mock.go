@@ -3,6 +3,7 @@ package mocks
 import (
 	"fmt"
 	"io"
+	"time"
 )
 
 const (
@@ -26,4 +27,14 @@ func Contagem(out io.Writer, sleeper Sleeper) {
 
 type Sleeper interface {
 	Sleep()
+}
+
+type SleeperConfiguravel struct {
+	duracao time.Duration
+	pausa   func(time.Duration)
+}
+
+// Pausa vai pausar a execução pela Duração definida
+func (s *SleeperConfiguravel) Pausa() {
+	s.pausa(s.duracao)
 }
